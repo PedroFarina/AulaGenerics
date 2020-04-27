@@ -38,10 +38,24 @@ extension Array where Element: Numeric {
 }
 //TODO: Fazer um método que recebe 2 Arrays e retorna um Int referente a quantidade de elementos presentes em ambos os Arrays
     //BONUS TODO: Fazer o método acima receber N arrays
-func countOf(_ arrays: Array<Any>...) -> Int {
-    var soma = 0
-    for array in arrays {
-        soma += array.count
+func isIn<T: Equatable>(_ arrays: Array<T>...) -> Int {
+    var arraysCopy = arrays
+    var result = arraysCopy.removeFirst()
+    let firstCopy = result
+    for element in firstCopy {
+        for array in arraysCopy {
+            if !array.contains(element) {
+                result.removeFirst()
+                break
+            }
+        }
     }
-    return soma
+    return result.count
 }
+
+
+var arr1 = [0, 1, 2, 3, 4, 5]
+var arr2 = [0, 2, 2, 2, 5, 2]
+var arr3 = [0, 3, 5, 5, 5, 5]
+
+print(isIn(arr1, arr2, arr3))
